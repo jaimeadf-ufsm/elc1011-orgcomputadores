@@ -1,0 +1,6 @@
+.eqv OP_NONE 0
+.eqv OP_REG 1
+.eqv OP_MEM_OFFSET 2
+.eqv OP_MEM_ADDR 3
+.eqv OP_IMM_SIG 4
+.eqv OP_IMM_UNSIG 5
