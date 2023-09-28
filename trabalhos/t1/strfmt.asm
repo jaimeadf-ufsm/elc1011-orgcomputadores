@@ -87,15 +87,15 @@ writeop_case_reg:
     
 writeop_case_mem_offset:
 writeop_case_mem_addr:
-        jal utoahex
+        jal itostrhex
         j writeop_epilogue
     
 writeop_case_imm_sig:
-        jal itoadec
+        jal itostrdec
         j writeop_epilogue
 
 writeop_case_imm_unsig:
-        jal utoadec
+        jal utostrdec
         j writeop_epilogue
     
 writeop_case_default:
@@ -104,5 +104,4 @@ writeop_case_default:
 writeop_epilogue:
     lw $ra, 0($sp)
     addiu $sp, $sp, 4
-
     jr $ra
