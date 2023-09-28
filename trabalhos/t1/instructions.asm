@@ -1,92 +1,90 @@
+.include "constants.asm"
 
 .data
-register_names:
-    .ascii "$zero"
-    .space 3
-    .ascii "$at"
-    .space 5
-    .ascii "$v0"
-    .space 5
-    .ascii "$v1"
-    .space 5
-    .ascii "$a0"
-    .space 5
-    .ascii "$a1"
-    .space 5
-    .ascii "$a2"
-    .space 5
-    .ascii "$a3"
-    .space 5
-    .ascii "$t0"
-    .space 5
-    .ascii "$t1"
-    .space 5
-    .ascii "$t2"
-    .space 5
-    .ascii "$t3"
-    .space 5
-    .ascii "$t4"
-    .space 5
-    .ascii "$t5"
-    .space 5
-    .ascii "$t6"
-    .space 5
-    .ascii "$t7"
-    .space 5
-    .ascii "$s0"
-    .space 5
-    .ascii "$s1"
-    .space 5
-    .ascii "$s2"
-    .space 5
-    .ascii "$s3"
-    .space 5
-    .ascii "$s4"
-    .space 5
-    .ascii "$s5"
-    .space 5
-    .ascii "$s6"
-    .space 5
-    .ascii "$s7"
-    .space 5
-    .ascii "$t8"
-    .space 5
-    .ascii "$t9"
-    .space 5
-    .ascii "$k0"
-    .space 5
-    .ascii "$k1"
-    .space 5
-    .ascii "$gp"
-    .space 5
-    .ascii "$sp"
-    .space 5
-    .ascii "$fp"
-    .space 5
-    .ascii "$ra"
-    .space 5
+str_reg_0:  .asciiz "$zero"
+str_reg_1:  .asciiz "$at"
+str_reg_2:  .asciiz "$v0"
+str_reg_3:  .asciiz "$v1"
+str_reg_4:  .asciiz "$a0"
+str_reg_5:  .asciiz "$a1"
+str_reg_6:  .asciiz "$a2"
+str_reg_7:  .asciiz "$a3"
+str_reg_8:  .asciiz "$t0"
+str_reg_9:  .asciiz "$t1"
+str_reg_10: .asciiz "$t2"
+str_reg_11: .asciiz "$t3"
+str_reg_12: .asciiz "$t4"
+str_reg_13: .asciiz "$t5"
+str_reg_14: .asciiz "$t6"
+str_reg_15: .asciiz "$t7"
+str_reg_16: .asciiz "$s0"
+str_reg_17: .asciiz "$s1"
+str_reg_18: .asciiz "$s2"
+str_reg_19: .asciiz "$s3"
+str_reg_20: .asciiz "$s4"
+str_reg_21: .asciiz "$s5"
+str_reg_22: .asciiz "$s6"
+str_reg_23: .asciiz "$s7"
+str_reg_24: .asciiz "$t8"
+str_reg_25: .asciiz "$t9"
+str_reg_26: .asciiz "$k0"
+str_reg_27: .asciiz "$k1"
+str_reg_28: .asciiz "$gp"
+str_reg_29: .asciiz "$sp"
+str_reg_30: .asciiz "$fp"
+str_reg_31: .asciiz "$ra"
+
+
+reg_names:
+.word str_reg_0
+.word str_reg_1
+.word str_reg_2
+.word str_reg_3
+.word str_reg_4
+.word str_reg_5
+.word str_reg_6
+.word str_reg_7
+.word str_reg_8
+.word str_reg_9
+.word str_reg_10
+.word str_reg_11
+.word str_reg_12
+.word str_reg_13
+.word str_reg_14
+.word str_reg_15
+.word str_reg_16
+.word str_reg_17
+.word str_reg_18
+.word str_reg_19
+.word str_reg_20
+.word str_reg_21
+.word str_reg_22
+.word str_reg_23
+.word str_reg_24
+.word str_reg_25
+.word str_reg_26
+.word str_reg_27
+.word str_reg_28
+.word str_reg_29
+.word str_reg_30
+.word str_reg_31
+
+
 
 .text
 .globl regtostr
 regtostr:
-    sll $a1, $a1, 3
+    addiu $sp, $sp, -4
+    sw $ra, 0($sp)
 
-    la $t0, register_names
-    addu $t0, $t0, $a1
+    sll $t0, $a1, 2
 
-    move $v0, $a0
+    la $t1, reg_names
+    addu $t1, $t1, $t0
 
-    j regtostr_copy_condition
+    lw $a1, 0($t1)
+    jal strcpy
 
-regtostr_copy_loop:
-    sb $t1, 0($v0)
-
-    addiu $v0, $v0, 1
-    addiu $t0, $t0, 1
-regtostr_copy_condition:
-    lb $t1, 0($t0)
-    bne $t1, $zero, regtostr_copy_loop
-
-    sb $zero, 0($v0)
-
+    lw $ra, 0($sp)
+    addiu $sp, $sp, 4
     jr $ra
