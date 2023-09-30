@@ -23,19 +23,20 @@
 # Offset 12 : <word> tipo do operando 3
 # Offset 16 : <endereço> string de formato
 
+
 .text
 # Encontra o tipo (I, R ou J) e a definição da instrução que o código se refere.
 # 
 # argumentos
-# $a0 : <word> código
+# $a0 : <word> código de máquina
 #
 # retorno
 # $v0 : <endereço> para <Tipo da Instrução>
 # $v1 : <endereço> para <Definição da Instrução>
 .globl lookupinst
 lookupinst:
-    srl $t0, $a0, 26                            # i  ) $t0 = campo OPCODE 
-    andi $t1, $a0, 0x0000003F                   # ii ) $t1 = campo FUNC
+    srl $t0, $a0, 26                            # i  ) $t0 = campo OPCODE (>> 26)
+    andi $t1, $a0, 0x0000003F                   # ii ) $t1 = campo FUNCT (000000 00000 00000 00000 00000 111111)
 
     srl $t2, $a0, 16                            # iii) $t2 = campo RT (deslocado para início)
     andi $t2, $t2, 0x0000002F                   #      $t2 = campo RT (isolado por uma máscara)
