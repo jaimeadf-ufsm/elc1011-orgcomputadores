@@ -204,7 +204,7 @@ parseop_type_mem_address:
     sll $v1, $a0, 2                                        # $v2 = $a0 << 2 (concatenamos 2 zeros à direita do valor do campo)
     addiu $t0, $a2, 4                                      # $t0 = PC + 4
     andi $t0, $t0, 0xF0000000                              # $t0 = isola os 4 bits mais significativos de PC + 4
-    or $v1, $v1, $t1                                       # $v1 = substituí os bits mais significativos pelos de PC + 4
+    or $v1, $v1, $t0                                       # $v1 = substituí os bits mais significativos pelos de PC + 4
 
     j parseop_return                                       # retorna a funçao
 

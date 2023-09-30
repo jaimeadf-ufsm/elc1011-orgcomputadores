@@ -46,15 +46,15 @@ lookupinst:
     beq $t0, 0x01, lookupinst_op_01             # se campo OPCODE = 0x01, busca na tabela especial 0x01
 
 lookupinst_op_default:
-    bne $t0, 0x02, lookupinst_if_not_jump       # se campo OPCODE != 0x02 ou se campo OPCODE != 0x03,
-    bne $t0, 0x03, lookupinst_if_not_jump       # definição o tipo da instrução para I
-
-lookupinst_if_jump:
-    la $v0, inst_type_j                          # $v0 = endereço para do tipo J
-    j lookupinst_end_if_jump                     # salta para fora do bloco if
+    beq $t0, 0x02, lookupinst_if_jump           # se campo OPCODE == 0x02 ou se campo OPCODE == 0x03,
+    beq $t0, 0x03, lookupinst_if_jump           # definição o tipo da instrução para J
 
 lookupinst_if_not_jump:
     la $v0, inst_type_i                          # $v0 = endereço para do tipo I
+    j lookupinst_end_if_jump                     # salta para fora do bloco if
+
+lookupinst_if_jump:
+    la $v0, inst_type_j                          # $v0 = endereço para do tipo J
 
 lookupinst_end_if_jump:
     la $t3, root_insts                           # $t3 = endereço base da tabela raíz
@@ -153,7 +153,7 @@ inst_type_i:
 # 000000     00000000000000000000000000
 inst_type_j:
 # Campo ADDRESS:
-.word 0x3FFFFFFF # mascara      = 000000    11111111111111111111111111
+.word 0x03FFFFFF # mascara      = 000000    11111111111111111111111111
 .word 0          # deslocamento = 0
 # Campo Ignorado:
 .word 0          # mascara      = 000000    00000000000000000000000000
@@ -171,8 +171,8 @@ inst_type_j:
 root_insts:
     .word 0
     .word 0
-    .word 0
-    .word 0
+    .word inst_def_j
+    .word inst_def_jal
     .word 0
     .word 0
     .word 0
@@ -407,7 +407,15 @@ special_rt_insts:
     .word 0
     .word 0
     .word 0
+
+inst_def_j:
+    .word OP_MEM_ADDR, OP_NONE, OP_NONE, OP_NONE
+    .word inst_fmt_j
     
+inst_def_jal:
+    .word OP_MEM_ADDR, OP_NONE, OP_NONE, OP_NONE
+    .word inst_fmt_jal
+
 inst_def_addiu:
     .word OP_REG, OP_REG, OP_IMM_SIG, OP_NONE
     .word inst_fmt_addiu
@@ -421,6 +429,8 @@ inst_def_lw:
     .word OP_REG, OP_REG, OP_IMM_SIG, OP_NONE # = tipos dos campos 0 a 3
     .word inst_fmt_lw                         # = endereço do formato         
 
+inst_fmt_j: .asciiz "jal #0"
+inst_fmt_jal: .asciiz "jal #0"
 inst_fmt_addiu: .asciiz "addiu #1, #0, #2"
 inst_fmt_addu: .asciiz "addu #2, #0, #1"
 inst_fmt_lw:   .asciiz "lw #1, #2(#0)"
