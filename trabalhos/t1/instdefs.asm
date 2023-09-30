@@ -204,7 +204,7 @@ root_insts:
     .word 0
     .word 0
     .word 0
-    .word 0
+    .word inst_def_lw
     .word 0
     .word 0
     .word 0
