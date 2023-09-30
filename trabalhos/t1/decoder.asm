@@ -144,7 +144,14 @@ extractops_for_condition:
 # saída:
 # $v0 : <word> tipo do operando (cópia de $a1)
 # $v1 : <word> valor do operando decodificado
+#
+# pilha:
+# $sp + 4  : váriavel temporária 
+# $sp + 0  : $ra
 parseop:
+    addiu $sp, $sp, -8                                     # ajusta a pilha
+    sw $ra, 0($sp)                                         # armazena na pilha o endereço de retorno
+
     beq $a1, OP_REG, parseop_type_reg                     # se o tipo for registrador, utiliza o valor absoluto do campo
     beq $a1, OP_IMM_UNSIG, parseop_type_imm_unsigned      # se o tipo for imediato sem sinal, utiliza o valor absoluto do campo
     beq $a1, OP_IMM_SIG, parseop_type_imm_signed          # se o tipo for imediato com sinal, extende o sinal do campo
@@ -155,50 +162,55 @@ parseop_type_default:
     li $v0, OP_NONE                                       # $v0 = OP_NONE 
     move $v1, $zero                                       # $v1 = 0
 
-    jr $ra                                                # retorna ao chamador
+    j parseop_return                                      # retorna a funçao
 
 parseop_type_reg:
     li $v0, OP_REG                                        # $v0 = OP_REG
     move $v1, $a0                                         # $v1 = $a0 (copia o valor do campo)
 
-    jr $ra                                                # retorna ao chamador
+    j parseop_return                                      # retorna a funçao
 
 parseop_type_imm_unsigned:
     li $v0, OP_REG                                        # $v0 = OP_REG
     move $v1, $a0                                         # $v1 = $a0 (copia o valor do campo)
 
-    jr $ra                                                # retorna ao chamador
+    j parseop_return                                      # retorna a funçao
 
 parseop_type_imm_signed:
     jal signextend                                        # extende o sinal do valor do campo
 
-    li $v0, OP_IMM_SIG                                    # $v0 = OP_IMM_SIG
     move $v1, $v0                                         # $v1 = valor do campo estendido de 16 para 32 bits
+    li $v0, OP_IMM_SIG                                    # $v0 = OP_IMM_SIG
 
-    jr $ra                                                # retorna ao chamador
+    j parseop_return                                      # retorna a funçao
 
 parseop_type_mem_offset:   
-    addiu $sp, $sp, -4                                    # ajustar pilha
-    sw $a2, 0($sp)                                        # armazena o valor de $a2 na pilha
+    sw $a2, 4($sp)                                        # armazena na pilha o valor de $a2
 
     jal signextend
 
     li $v0, OP_MEM_OFFSET                                 # $v0 = OP_MEM_OFFSET
 
-    lw $a2, 0($sp)                                        # carrega $a2 da pilha
+    lw $a2, 4($sp)                                        # carrega $a2 da pilha
     sll $v1, $v0, 2                                       # $v1 << 2
     addiu $t0, $a2, 4                                     # $t0 = PC + 4
     addu $v1, $v1, $t0                                    # $v1 = $v1 + $t0
 
-    addiu $sp, $sp, 4                                     # restaura pilha
-    jr $ra                                                # retorna ao chamador
+    j parseop_return                                       # retorna a funçao
 
 parseop_type_mem_address:
+    li $v0, OP_MEM_ADDR                                    # $v0 = OP_MEM_ADDR
+
     sll $v1, $a0, 2                                        # $v2 = $a0 << 2 (concatenamos 2 zeros à direita do valor do campo)
     addiu $t0, $a2, 4                                      # $t0 = PC + 4
     andi $t0, $t0, 0xF0000000                              # $t0 = isola os 4 bits mais significativos de PC + 4
     or $v1, $v1, $t1                                       # $v1 = substituí os bits mais significativos pelos de PC + 4
-    
-    li $v0, OP_MEM_ADDR
-    jr $ra                                                 # retorna ao chamador
+
+    j parseop_return                                       # retorna a funçao
+
+parseop_return:
+    lw $ra, 0($sp)                                         # restaura o endereço de retorno
+    addiu $sp, $sp, 8                                      # restaura a pilha
+
+    jr $ra
 
