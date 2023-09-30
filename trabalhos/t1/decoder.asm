@@ -171,7 +171,7 @@ parseop_type_reg:
     j parseop_return                                      # retorna a funçao
 
 parseop_type_imm_unsigned:
-    li $v0, OP_REG                                        # $v0 = OP_REG
+    li $v0, OP_IMM_UNSIG                                  # $v0 = OP_IMM_UNSIG
     move $v1, $a0                                         # $v1 = $a0 (copia o valor do campo)
 
     j parseop_return                                      # retorna a funçao
