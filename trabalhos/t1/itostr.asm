@@ -11,7 +11,7 @@ itostrdec:
 	addiu $sp, $sp, -4
 	sw $ra, 0($sp)
 
-	bgtz $a1, itostrdec_convert
+	bgez $a1, itostrdec_convert
 
 	li $t0, '-'
 	sb $t0, 0($a0)
