@@ -15,7 +15,7 @@ main:
     sw $v0, 0($t0)                                         # armazena o descritor do arquivo de entrada       
 
     la $a0, output_filename                                # $a0 = <endereço> para o nome do arquivo de saída 
-    li $a1, 0                                              # $a1 = 1 (flag para escrita)
+    li $a1, 1                                              # $a1 = 1 (flag para escrita)
     jal openfile                                           # abre o arquivo
 
     la $t0, output_descriptor                              # $a0 = <endereço> onde será armazenado o descritor do arquivo
@@ -131,7 +131,7 @@ writeinst_if_not_unknown_inst:
     la $a2, dinst_operands                                 # $a2 = <endereço> para o vetor de <Operando>
     jal strfmt                                             # formata a instrução para uma string
 
-    j writeinst_if_unknown_inst                            # vai para fora do bloco if
+    j writeinst_end_if_unknown_inst                        # vai para fora do bloco if
     
 writeinst_if_unknown_inst:
     la $a1, str_unknown_inst                               # $a1 = <endereço> para a string de instrução desconhecida
@@ -169,6 +169,8 @@ openfile:
     li $a2, 0                                              # $a2 = modo = 0 (parâmetro ignorado)
     syscall                                                # realiza uma chamada ao sistema
 
+    jr $ra                                                 # retorna ao chamador
+
 # Fecha o arquivo.
 #
 # argumentos:
@@ -176,6 +178,8 @@ openfile:
 closefile:
     li $v0, 16                                             # serviço 16: fechar arquivo
     syscall                                                # realiza uma chamada ao sistema
+
+    jr $ra                                                 # retorna ao chamador
 
 
 # Lê um bloco de n bytes do arquivo.
@@ -191,6 +195,8 @@ readfile:
     li $v0, 14                                             # serviço 14: ler de um arquivo
     syscall                                                # realiza uma chamada ao sistema
 
+    jr $ra                                                 # retorna ao chamador
+
 # Escreve um texto terminado com nulo no arquivo.
 #
 # argumentos:
@@ -201,12 +207,16 @@ writetofile:
     li $v0, 15                                             # serviço 15: escreve em um arquivo
     syscall                                                # realiza a chamada de sistema
 
+    jr $ra                                                 # retorna ao chamador
+
 
 # Encerra o program.
 exit:
     li $v0, 17
     li $a0, 0
     syscall
+
+    jr $ra                                                 # retorna ao chamador
 
 .data
 input_filename:  .asciiz "object.bin"
