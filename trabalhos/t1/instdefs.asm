@@ -46,8 +46,8 @@ lookupinst:
     beq $t0, 0x01, lookupinst_op_01             # se campo OPCODE = 0x01, busca na tabela especial 0x01
 
 lookupinst_op_default:
-    beq $t0, 0x02, lookupinst_if_jump           # se campo OPCODE == 0x02 ou se campo OPCODE == 0x03,
-    beq $t0, 0x03, lookupinst_if_jump           # definição o tipo da instrução para J
+    beq $t0, 0x02, lookupinst_if_jump           # se campo OPCODE = 0x02 ou se campo OPCODE = 0x03,
+    beq $t0, 0x03, lookupinst_if_jump           # define o tipo da instrução para J
 
 lookupinst_if_not_jump:
     la $v0, inst_type_i                          # $v0 = endereço para do tipo I
@@ -429,7 +429,7 @@ inst_def_lw:
     .word OP_REG, OP_REG, OP_IMM_SIG, OP_NONE # = tipos dos campos 0 a 3
     .word inst_fmt_lw                         # = endereço do formato         
 
-inst_fmt_j: .asciiz "jal #0"
+inst_fmt_j: .asciiz "j #0"
 inst_fmt_jal: .asciiz "jal #0"
 inst_fmt_addiu: .asciiz "addiu #1, #0, #2"
 inst_fmt_addu: .asciiz "addu #2, #0, #1"
