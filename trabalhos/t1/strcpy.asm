@@ -14,7 +14,7 @@ strcpy_condition:
     lb $t0, 0($a1)
     bne $t0, $zero, strcpy_loop
 
-    lb $zero, 0($a0)
+    sb $zero, 0($a0)
 
     move $v0, $a0
     jr $ra
