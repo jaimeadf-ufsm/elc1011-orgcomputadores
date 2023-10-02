@@ -1,5 +1,12 @@
 .include "constants.asm"
 
+.macro definst (%fmt, %op0, %op1, %op2, %op3)
+.data
+.word %op0, %op1, %op2, %op3
+.word definst_fmt
+
+definst_fmt: .asciiz %fmt
+.end_macro
 # struct <Campo>
 # 8 bytes 
 #
@@ -408,31 +415,9 @@ special_rt_insts:
     .word 0
     .word 0
 
-inst_def_j:
-    .word OP_MEM_ADDR, OP_NONE, OP_NONE, OP_NONE
-    .word inst_fmt_j
-    
-inst_def_jal:
-    .word OP_MEM_ADDR, OP_NONE, OP_NONE, OP_NONE
-    .word inst_fmt_jal
-
-inst_def_addiu:
-    .word OP_REG, OP_REG, OP_IMM_SIG, OP_NONE
-    .word inst_fmt_addiu
-    
-inst_def_addu:
-    .word OP_REG, OP_REG, OP_REG, OP_NONE
-    .word inst_fmt_addu
-
-# lw rt, offset(base)
-inst_def_lw:
-    .word OP_REG, OP_REG, OP_IMM_SIG, OP_NONE # = tipos dos campos 0 a 3
-    .word inst_fmt_lw                         # = endereço do formato         
-
-inst_fmt_j: .asciiz "j #0"
-inst_fmt_jal: .asciiz "jal #0"
-inst_fmt_addiu: .asciiz "addiu #1, #0, #2"
-inst_fmt_addu: .asciiz "addu #2, #0, #1"
-inst_fmt_lw:   .asciiz "lw #1, #2(#0)"
-
+inst_def_j:     definst("j #0", OP_MEM_ADDR, OP_NONE, OP_NONE, OP_NONE)
+inst_def_jal:   definst("jal #0", OP_MEM_ADDR, OP_NONE, OP_NONE, OP_NONE)
+inst_def_addiu: definst("addiu #1, #0, #2", OP_REG, OP_REG, OP_IMM_SIG, OP_NONE)
+inst_def_addu:  definst("addu #2, #0, #1", OP_REG, OP_REG, OP_REG, OP_NONE)
+inst_def_lw:    definst("lw #1, #2(#0)", OP_REG, OP_REG, OP_IMM_SIG, OP_NONE)
 
