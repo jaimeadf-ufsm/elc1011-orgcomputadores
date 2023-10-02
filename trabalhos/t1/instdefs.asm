@@ -414,11 +414,12 @@ special_rt_insts:
     .word 0
     .word 0
     .word 0
-
+#tabela raiz
 inst_def_j:     definst("j #0", OP_MEM_ADDR, OP_NONE, OP_NONE, OP_NONE)
 inst_def_jal:   definst("jal #0", OP_MEM_ADDR, OP_NONE, OP_NONE, OP_NONE)
 inst_def_addiu: definst("addiu #1, #0, #2", OP_REG, OP_REG, OP_IMM_SIG, OP_NONE)
 inst_def_lw:    definst("lw #1, #2(#0)", OP_REG, OP_REG, OP_IMM_SIG, OP_NONE)
 
+#tabela0x0
 inst_def_addu:  definst("addu #2, #0, #1", OP_REG, OP_REG, OP_REG, OP_NONE)
 
