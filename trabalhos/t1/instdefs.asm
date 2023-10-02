@@ -176,243 +176,467 @@ inst_type_j:
 # Tabela raíz de <Definição da Instrução>
 # Acessada com o deslocamento pelo campo OPCODE
 root_insts:
+    # OPCODE = 0x00
     .word 0
+    # OPCODE = 0x01
     .word 0
+    # OPCODE = 0x02
     .word inst_def_j
+    # OPCODE = 0x03
     .word inst_def_jal
+    # OPCODE = 0x04
     .word 0
+    # OPCODE = 0x05
     .word 0
+    # OPCODE = 0x06
     .word 0
+    # OPCODE = 0x07
     .word 0
+    # OPCODE = 0x08
     .word 0
+    # OPCODE = 0x09
     .word inst_def_addiu
+    # OPCODE = 0x0a
     .word 0
+    # OPCODE = 0x0b
     .word 0
+    # OPCODE = 0x0c
     .word 0
+    # OPCODE = 0x0d
     .word 0
+    # OPCODE = 0x0e
     .word 0
+    # OPCODE = 0x0f
     .word 0
+    # OPCODE = 0x10
     .word 0
+    # OPCODE = 0x11
     .word 0
+    # OPCODE = 0x12
     .word 0
+    # OPCODE = 0x13
     .word 0
+    # OPCODE = 0x14
     .word 0
+    # OPCODE = 0x15
     .word 0
+    # OPCODE = 0x16
     .word 0
+    # OPCODE = 0x17
     .word 0
+    # OPCODE = 0x18
     .word 0
+    # OPCODE = 0x19
     .word 0
+    # OPCODE = 0x1a
     .word 0
+    # OPCODE = 0x1b
     .word 0
+    # OPCODE = 0x1c
     .word 0
+    # OPCODE = 0x1d
     .word 0
+    # OPCODE = 0x1e
     .word 0
+    # OPCODE = 0x1f
     .word 0
+    # OPCODE = 0x20
     .word 0
+    # OPCODE = 0x21
     .word 0
+    # OPCODE = 0x22
     .word 0
+    # OPCODE = 0x23
     .word inst_def_lw
+    # OPCODE = 0x24
     .word 0
+    # OPCODE = 0x25
     .word 0
+    # OPCODE = 0x26
     .word 0
+    # OPCODE = 0x27
     .word 0
+    # OPCODE = 0x28
     .word 0
+    # OPCODE = 0x29
     .word 0
+    # OPCODE = 0x2a
     .word 0
+    # OPCODE = 0x2b
     .word 0
+    # OPCODE = 0x2c
     .word 0
+    # OPCODE = 0x2d
     .word 0
+    # OPCODE = 0x2e
     .word 0
+    # OPCODE = 0x2f
     .word 0
+    # OPCODE = 0x30
     .word 0
+    # OPCODE = 0x31
     .word 0
+    # OPCODE = 0x32
     .word 0
+    # OPCODE = 0x33
     .word 0
+    # OPCODE = 0x34
     .word 0
+    # OPCODE = 0x35
     .word 0
+    # OPCODE = 0x36
     .word 0
+    # OPCODE = 0x37
     .word 0
+    # OPCODE = 0x38
     .word 0
+    # OPCODE = 0x39
     .word 0
+    # OPCODE = 0x3a
     .word 0
+    # OPCODE = 0x3b
     .word 0
+    # OPCODE = 0x3c
     .word 0
+    # OPCODE = 0x3d
     .word 0
+    # OPCODE = 0x3e
     .word 0
+    # OPCODE = 0x3f
     .word 0
+    # OPCODE = 0x40
     .word 0
 
 # Tabela especial de <Definição da Instrução> com o campo OPCODE = 0x00
 # Acessada com o deslocamento pelo campo FUNCT
 special_00_insts:
+    # FUNCT = 0x00
     .word 0
+    # FUNCT = 0x01
     .word 0
+    # FUNCT = 0x02
     .word 0
+    # FUNCT = 0x03
     .word 0
+    # FUNCT = 0x04
     .word 0
+    # FUNCT = 0x05
     .word 0
+    # FUNCT = 0x06
     .word 0
+    # FUNCT = 0x07
     .word 0
+    # FUNCT = 0x08
     .word 0
+    # FUNCT = 0x09
     .word 0
+    # FUNCT = 0x0a
     .word 0
+    # FUNCT = 0x0b
     .word 0
+    # FUNCT = 0x0c
     .word 0
+    # FUNCT = 0x0d
     .word 0
+    # FUNCT = 0x0e
     .word 0
+    # FUNCT = 0x0f
     .word 0
+    # FUNCT = 0x10
     .word 0
+    # FUNCT = 0x11
     .word 0
+    # FUNCT = 0x12
     .word 0
+    # FUNCT = 0x13
     .word 0
+    # FUNCT = 0x14
     .word 0
+    # FUNCT = 0x15
     .word 0
+    # FUNCT = 0x16
     .word 0
+    # FUNCT = 0x17
     .word 0
+    # FUNCT = 0x18
     .word 0
+    # FUNCT = 0x19
     .word 0
+    # FUNCT = 0x1a
     .word 0
+    # FUNCT = 0x1b
     .word 0
+    # FUNCT = 0x1c
     .word 0
+    # FUNCT = 0x1d
     .word 0
+    # FUNCT = 0x1e
     .word 0
+    # FUNCT = 0x1f
     .word 0
+    # FUNCT = 0x20
     .word 0
+    # FUNCT = 0x21
     .word inst_def_addu
+    # FUNCT = 0x22
     .word 0
+    # FUNCT = 0x23
     .word 0
+    # FUNCT = 0x24
     .word 0
+    # FUNCT = 0x25
     .word 0
+    # FUNCT = 0x26
     .word 0
+    # FUNCT = 0x27
     .word 0
+    # FUNCT = 0x28
     .word 0
+    # FUNCT = 0x29
     .word 0
+    # FUNCT = 0x2a
     .word 0
+    # FUNCT = 0x2b
     .word 0
+    # FUNCT = 0x2c
     .word 0
+    # FUNCT = 0x2d
     .word 0
+    # FUNCT = 0x2e
     .word 0
+    # FUNCT = 0x2f
     .word 0
+    # FUNCT = 0x30
     .word 0
+    # FUNCT = 0x31
     .word 0
+    # FUNCT = 0x32
     .word 0
+    # FUNCT = 0x33
     .word 0
+    # FUNCT = 0x34
     .word 0
+    # FUNCT = 0x35
     .word 0
+    # FUNCT = 0x36
     .word 0
+    # FUNCT = 0x37
     .word 0
+    # FUNCT = 0x38
     .word 0
+    # FUNCT = 0x39
     .word 0
+    # FUNCT = 0x3a
     .word 0
+    # FUNCT = 0x3b
     .word 0
+    # FUNCT = 0x3c
     .word 0
+    # FUNCT = 0x3d
     .word 0
+    # FUNCT = 0x3e
     .word 0
-    .word 0
+    # FUNCT = 0x3f
     .word 0
 
 # Tabela especial de <Definição da Instrução> com o campo OPCODE = 0x1C
 # Acessada com o deslocamento pelo campo FUNCT
 special_1c_insts:
+    # FUNCT = 0x00
     .word 0
+    # FUNCT = 0x01
     .word 0
+    # FUNCT = 0x02
     .word 0
+    # FUNCT = 0x03
     .word 0
+    # FUNCT = 0x04
     .word 0
+    # FUNCT = 0x05
     .word 0
+    # FUNCT = 0x06
     .word 0
+    # FUNCT = 0x07
     .word 0
+    # FUNCT = 0x08
     .word 0
+    # FUNCT = 0x09
     .word 0
+    # FUNCT = 0x0a
     .word 0
+    # FUNCT = 0x0b
     .word 0
+    # FUNCT = 0x0c
     .word 0
+    # FUNCT = 0x0d
     .word 0
+    # FUNCT = 0x0e
     .word 0
+    # FUNCT = 0x0f
     .word 0
+    # FUNCT = 0x10
+    fword 0
+    # FUNCT = 0x11
     .word 0
+    # FUNCT = 0x12
     .word 0
+    # FUNCT = 0x13
     .word 0
+    # FUNCT = 0x14
     .word 0
+    # FUNCT = 0x15
     .word 0
+    # FUNCT = 0x16
     .word 0
+    # FUNCT = 0x17
     .word 0
+    # FUNCT = 0x18
     .word 0
+    # FUNCT = 0x19
     .word 0
+    # FUNCT = 0x1a
     .word 0
+    # FUNCT = 0x1b
     .word 0
+    # FUNCT = 0x1c
     .word 0
+    # FUNCT = 0x1d
     .word 0
+    # FUNCT = 0x1e
     .word 0
+    # FUNCT = 0x1f
     .word 0
+    # FUNCT = 0x20
     .word 0
+    # FUNCT = 0x21
     .word 0
+    # FUNCT = 0x22
     .word 0
+    # FUNCT = 0x23
     .word 0
+    # FUNCT = 0x24
     .word 0
+    # FUNCT = 0x25
     .word 0
+    # FUNCT = 0x26
     .word 0
+    # FUNCT = 0x27
     .word 0
+    # FUNCT = 0x28
     .word 0
+    # FUNCT = 0x29
     .word 0
+    # FUNCT = 0x2a
     .word 0
+    # FUNCT = 0x2b
     .word 0
+    # FUNCT = 0x2c
     .word 0
+    # FUNCT = 0x2d
     .word 0
+    # FUNCT = 0x2e
     .word 0
+    # FUNCT = 0x2f
     .word 0
+    # FUNCT = 0x30
     .word 0
+    # FUNCT = 0x31
     .word 0
+    # FUNCT = 0x32
     .word 0
+    # FUNCT = 0x33
     .word 0
+    # FUNCT = 0x34
     .word 0
+    # FUNCT = 0x35
     .word 0
+    # FUNCT = 0x36
     .word 0
+    # FUNCT = 0x37
     .word 0
+    # FUNCT = 0x38
     .word 0
+    # FUNCT = 0x39
     .word 0
+    # FUNCT = 0x3a
     .word 0
+    # FUNCT = 0x3b
     .word 0
+    # FUNCT = 0x3c
     .word 0
+    # FUNCT = 0x3d
     .word 0
+    # FUNCT = 0x3e
     .word 0
-    .word 0
-    .word 0
+    # FUNCT = 0x3f
+
 
 # Tabela especial de <Definição da Instrução> com o campo OPCODE = 0x01
 # Acessada com o deslocamento pelo campo RT
 special_rt_insts:
+    # RT = 0x00
     .word 0
+    # RT = 0x01
     .word 0
+    # RT = 0x02
     .word 0
+    # RT = 0x03
     .word 0
+    # RT = 0x04
     .word 0
+    # RT = 0x05
     .word 0
+    # RT = 0x06
     .word 0
+    # RT = 0x07
     .word 0
+    # RT = 0x08
     .word 0
+    # RT = 0x09
     .word 0
+    # RT = 0x0a
     .word 0
+    # RT = 0x0b
     .word 0
+    # RT = 0x0c
     .word 0
+    # RT = 0x0d
     .word 0
+    # RT = 0x0e
     .word 0
+    # RT = 0x0f
     .word 0
+    # RT = 0x10
     .word 0
+    # RT = 0x11
     .word 0
+    # RT = 0x12
     .word 0
+    # RT = 0x13
     .word 0
+    # RT = 0x14
     .word 0
+    # RT = 0x15
     .word 0
+    # RT = 0x16
     .word 0
+    # RT = 0x17
     .word 0
+    # RT = 0x18
     .word 0
+    # RT = 0x19
     .word 0
+    # RT = 0x1a
     .word 0
+    # RT = 0x1b
     .word 0
+    # RT = 0x1c
     .word 0
+    # RT = 0x1d
     .word 0
+    # RT = 0x1e
     .word 0
+    # RT = 0x1f
     .word 0
 #tabela raiz
 inst_def_j:     definst("j #0", OP_MEM_ADDR, OP_NONE, OP_NONE, OP_NONE)
