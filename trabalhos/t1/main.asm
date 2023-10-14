@@ -4,12 +4,12 @@
 .eqv WRITE_BUFFER_SIZE 1024
 
 .text
-
 .globl main
 main:
     la $a0, input_filename                                 # $a0 = <endereço> para o nome do arquivo de entrada 
     li $a1, 0                                              # $a1 = 0 (flag para leitura)
     jal openfile                                           # abre o arquivo
+    jal checkfileopen                                      # Verifica se ocorreu um erro na abertura
 
     la $t0, input_descriptor                               # $a0 = <endereço> onde será armazenado o descritor do arquivo
     sw $v0, 0($t0)                                         # armazena o descritor do arquivo de entrada       
@@ -17,6 +17,7 @@ main:
     la $a0, output_filename                                # $a0 = <endereço> para o nome do arquivo de saída 
     li $a1, 1                                              # $a1 = 1 (flag para escrita)
     jal openfile                                           # abre o arquivo
+    jal checkfileopen                                      # Verifica se ocorreu um erro na abertura
 
     la $t0, output_descriptor                              # $a0 = <endereço> onde será armazenado o descritor do arquivo
     sw $v0, 0($t0)                                         # armazena o descritor do arquivo de saída       
@@ -34,8 +35,8 @@ main_read_while_condition:
     la $a1, read_buffer                                    # $a1 = <endereço> onde será armazenado os bytes lidos
     li $a2, READ_BUFFER_SIZE                               # $a2 = capacidade máxima de bytes que podem serem lidos
     jal readfile                                           # lê o arquivo de entrada
-
-    bgtz $v0, main_read_while_loop                  # se o número de bytes lidos for maior que zero, continua o loop
+    bltz $v0, readfile_error                               # Se $v0 for negativo, ocorreu um erro na leitura
+    bgtz $v0, main_read_while_loop                         # Se o número de bytes lidos for maior que zero, continua o loop
 
     la $t0, input_descriptor                               # $t0 = <endereço> para o descritor do arquivo de entrada
     lw $a0, 0($t0)                                         # $a0 = descritor do arquivo de entrada
@@ -47,6 +48,15 @@ main_read_while_condition:
 
     jal exit                                               # encerra o programa
 
+# Imprima uma mensagem de erro e encerre o programa
+readfile_error:
+    la $a0, read_error_message   # Carrega o endereço da mensagem de erro
+    li $v0, 4               # Serviço 4: imprime uma string
+    syscall
+
+    li $v0, 10              # Serviço 10: encerra o programa
+    li $a0, 1               # Define o valor de retorno para 1
+    syscall
 
 # Decodifica o bloco de instruções no buffer de leitura.
 # 
@@ -149,6 +159,23 @@ writeinst_end_if_unknown_inst:
     addiu $a2, $a2, 1                                      # inclui o caractere nova linha no tamanho
     jal writetofile                                        # escreve para o arquivo de saída
 
+    # Verifica o valor de retorno da função writetofile
+    bgez $v0, writefile_success                            # Se $v0 for maior ou igual a zero, a escrita foi bem-sucedida
+    beq $v0, -1, writefile_error                           # Se $v0 for igual a -1, ocorreu um erro na escrita
+
+# Ocorreu um erro na escrita do arquivo
+writefile_error:
+    la $a0, write_error_message                            # Carrega o endereço da mensagem de erro de escrita
+    li $v0, 4                                              # Serviço 4: imprime uma string
+    syscall
+
+    li $v0, 10                                             # Serviço 10: encerra o programa
+    li $a0, 1                                              # Define o valor de retorno para 1
+    syscall
+
+# A escrita foi bem-sucedida
+writefile_success:
+
     lw $ra, 0($sp)                                         # restaura o endereço de retorno
     addiu $sp, $sp, 4                                      # restaura a pilha
 
@@ -170,6 +197,27 @@ openfile:
     syscall                                                # realiza uma chamada ao sistema
 
     jr $ra                                                 # retorna ao chamador
+
+# Verifica o valor de retorno ao abrir um arquivo.
+#
+# argumentos:
+# $v0 : <word> valor de retorno da abertura do arquivo
+# $a0 : <endereço> string com o nome do arquivo
+# $a1 : <word> flags (0: leitura, 1: escrita)
+checkfileopen:
+    beqz $v0, file_open_error  # Se $v0 for zero, ocorreu um erro na abertura
+    jr $ra                    # Retorna ao chamador
+
+file_open_error:
+    # Imprime uma mensagem de erro e encerra o programa com valor de retorno 1
+    la $a0, error_message     # Carrega o endereço da mensagem de erro
+    li $v0, 4                 # Serviço 4: imprime uma string
+    syscall
+
+    li $v0, 10                # Serviço 10: encerra o programa
+    li $a0, 1                 # Define o valor de retorno para 1
+    syscall
+
 
 # Fecha o arquivo.
 #
@@ -196,6 +244,8 @@ readfile:
     syscall                                                # realiza uma chamada ao sistema
 
     jr $ra                                                 # retorna ao chamador
+
+
 
 # Escreve um texto terminado com nulo no arquivo.
 #
@@ -237,3 +287,6 @@ dinst_definition: .word 0
 dinst_operands:   .word 0, 0, 0, 0, 0, 0, 0, 0
 
 str_unknown_inst: .asciiz "instrucao desconhecida"
+error_message: .asciiz "Erro na abertura do arquivo.\n"
+read_error_message: .asciiz "Erro na leitura do arquivo.\n"
+write_error_message: .asciiz "Erro na escrita no arquivo.\n"
