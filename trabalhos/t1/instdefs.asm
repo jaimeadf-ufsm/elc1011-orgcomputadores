@@ -116,7 +116,7 @@ lookupinst_op_01:
 # 000000 00000 00000 00000 00000 000000
 inst_type_r:
 # Campo RS:
-.word 0x3E000000 # mascara      = 000000 11111 00000 00000 00000 000000
+.word 0x03E00000 # mascara      = 000000 11111 00000 00000 00000 000000
 .word 21         # deslocamento = 21
 # Campo RT:
 .word 0x001F0000 # mascara      = 000000 00000 11111 00000 00000 000000
