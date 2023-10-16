@@ -185,29 +185,29 @@ root_insts:
     # OPCODE = 0x03
     .word inst_def_jal
     # OPCODE = 0x04
-    .word 0
+    .word inst_def_beq
     # OPCODE = 0x05
-    .word 0
+    .word inst_def_bne
     # OPCODE = 0x06
-    .word 0
+    .word inst_def_blez
     # OPCODE = 0x07
-    .word 0
+    .word inst_def_bgtz
     # OPCODE = 0x08
-    .word 0
+    .word inst_def_addi
     # OPCODE = 0x09
     .word inst_def_addiu
     # OPCODE = 0x0a
-    .word 0
+    .word inst_def_slti
     # OPCODE = 0x0b
-    .word 0
+    .word inst_def_sltiu
     # OPCODE = 0x0c
-    .word 0
+    .word inst_def_andi
     # OPCODE = 0x0d
-    .word 0
+    .word inst_def_ori
     # OPCODE = 0x0e
-    .word 0
+    .word inst_def_xori
     # OPCODE = 0x0f
-    .word 0
+    .word inst_def_lui
     # OPCODE = 0x10
     .word 0
     # OPCODE = 0x11
@@ -217,13 +217,13 @@ root_insts:
     # OPCODE = 0x13
     .word 0
     # OPCODE = 0x14
-    .word 0
+    .word inst_def_beql
     # OPCODE = 0x15
-    .word 0
+    .word inst_def_bnel
     # OPCODE = 0x16
-    .word 0
+    .word inst_def_blezl
     # OPCODE = 0x17
-    .word 0
+    .word inst_def_bgtzl
     # OPCODE = 0x18
     .word 0
     # OPCODE = 0x19
@@ -241,39 +241,39 @@ root_insts:
     # OPCODE = 0x1f
     .word 0
     # OPCODE = 0x20
-    .word 0
+    .word inst_def_lb
     # OPCODE = 0x21
-    .word 0
+    .word inst_def_lh
     # OPCODE = 0x22
-    .word 0
+    .word inst_def_lwl
     # OPCODE = 0x23
     .word inst_def_lw
     # OPCODE = 0x24
-    .word 0
+    .word inst_def_lbu
     # OPCODE = 0x25
-    .word 0
+    .word inst_def_lhu
     # OPCODE = 0x26
-    .word 0
+    .word inst_def_lwr
     # OPCODE = 0x27
     .word 0
     # OPCODE = 0x28
-    .word 0
+    .word inst_def_sb
     # OPCODE = 0x29
-    .word 0
+    .word inst_def_sh
     # OPCODE = 0x2a
-    .word 0
+    .word inst_def_swl
     # OPCODE = 0x2b
-    .word 0
+    .word inst_def_sw
     # OPCODE = 0x2c
     .word 0
     # OPCODE = 0x2d
     .word 0
     # OPCODE = 0x2e
-    .word 0
+    .word inst_def_swr
     # OPCODE = 0x2f
     .word 0
     # OPCODE = 0x30
-    .word 0
+    .word inst_def_ll
     # OPCODE = 0x31
     .word 0
     # OPCODE = 0x32
@@ -311,45 +311,45 @@ root_insts:
 # Acessada com o deslocamento pelo campo FUNCT
 special_00_insts:
     # FUNCT = 0x00
-    .word 0
+    .word inst_def_sll
     # FUNCT = 0x01
     .word 0
     # FUNCT = 0x02
-    .word 0
+    .word inst_def_srl
     # FUNCT = 0x03
-    .word 0
+    .word inst_def_sra
     # FUNCT = 0x04
-    .word 0
+    .word inst_def_sllv
     # FUNCT = 0x05
     .word 0
     # FUNCT = 0x06
-    .word 0
+    .word inst_def_srlv
     # FUNCT = 0x07
-    .word 0
+    .word inst_def_srav
     # FUNCT = 0x08
-    .word 0
+    .word inst_def_jr
     # FUNCT = 0x09
-    .word 0
+    .word inst_def_jalr
     # FUNCT = 0x0a
-    .word 0
+    .word inst_def_movz
     # FUNCT = 0x0b
-    .word 0
+    .word inst_def_movn
     # FUNCT = 0x0c
-    .word 0
+    .word inst_def_syscall
     # FUNCT = 0x0d
-    .word 0
+    .word inst_def_break
     # FUNCT = 0x0e
     .word 0
     # FUNCT = 0x0f
-    .word 0
+    .word inst_def_sync
     # FUNCT = 0x10
-    .word 0
+    .word inst_def_mfhi
     # FUNCT = 0x11
-    .word 0
+    .word inst_def_mthi
     # FUNCT = 0x12
-    .word 0
+    .word inst_def_mflo
     # FUNCT = 0x13
-    .word 0
+    .word inst_def_mtlo
     # FUNCT = 0x14
     .word 0
     # FUNCT = 0x15
@@ -359,13 +359,13 @@ special_00_insts:
     # FUNCT = 0x17
     .word 0
     # FUNCT = 0x18
-    .word 0
+    .word inst_def_mult
     # FUNCT = 0x19
-    .word 0
+    .word inst_def_multu
     # FUNCT = 0x1a
-    .word 0
+    .word inst_def_div
     # FUNCT = 0x1b
-    .word 0
+    .word inst_def_divu
     # FUNCT = 0x1c
     .word 0
     # FUNCT = 0x1d
@@ -375,29 +375,29 @@ special_00_insts:
     # FUNCT = 0x1f
     .word 0
     # FUNCT = 0x20
-    .word 0
+    .word inst_def_add
     # FUNCT = 0x21
     .word inst_def_addu
     # FUNCT = 0x22
-    .word 0
+    .word inst_def_sub
     # FUNCT = 0x23
-    .word 0
+    .word inst_def_subu
     # FUNCT = 0x24
-    .word 0
+    .word inst_def_and
     # FUNCT = 0x25
-    .word 0
+    .word inst_def_or
     # FUNCT = 0x26
-    .word 0
+    .word inst_def_xor
     # FUNCT = 0x27
-    .word 0
+    .word inst_def_nor
     # FUNCT = 0x28
     .word 0
     # FUNCT = 0x29
     .word 0
     # FUNCT = 0x2a
-    .word 0
+    .word inst_def_slt
     # FUNCT = 0x2b
-    .word 0
+    .word inst_def_sltu
     # FUNCT = 0x2c
     .word 0
     # FUNCT = 0x2d
@@ -407,19 +407,19 @@ special_00_insts:
     # FUNCT = 0x2f
     .word 0
     # FUNCT = 0x30
-    .word 0
+    .word inst_def_tge
     # FUNCT = 0x31
-    .word 0
+    .word inst_def_tgeu
     # FUNCT = 0x32
-    .word 0
+    .word inst_def_tlt
     # FUNCT = 0x33
-    .word 0
+    .word inst_def_tltu
     # FUNCT = 0x34
-    .word 0
+    .word inst_def_teq
     # FUNCT = 0x35
     .word 0
     # FUNCT = 0x36
-    .word 0
+    .word inst_def_tne
     # FUNCT = 0x37
     .word 0
     # FUNCT = 0x38
@@ -443,17 +443,17 @@ special_00_insts:
 # Acessada com o deslocamento pelo campo FUNCT
 special_1c_insts:
     # FUNCT = 0x00
-    .word 0
+    .word inst_def_madd
     # FUNCT = 0x01
-    .word 0
+    .word inst_def_maddu
     # FUNCT = 0x02
-    .word 0
+    .word inst_def_mul
     # FUNCT = 0x03
     .word 0
     # FUNCT = 0x04
-    .word 0
+    .word inst_def_msub
     # FUNCT = 0x05
-    .word 0
+    .word inst_def_msubu
     # FUNCT = 0x06
     .word 0
     # FUNCT = 0x07
@@ -475,7 +475,7 @@ special_1c_insts:
     # FUNCT = 0x0f
     .word 0
     # FUNCT = 0x10
-    fword 0
+    .word 0
     # FUNCT = 0x11
     .word 0
     # FUNCT = 0x12
@@ -507,9 +507,9 @@ special_1c_insts:
     # FUNCT = 0x1f
     .word 0
     # FUNCT = 0x20
-    .word 0
+    .word inst_def_clz
     # FUNCT = 0x21
-    .word 0
+    .word inst_def_clo
     # FUNCT = 0x22
     .word 0
     # FUNCT = 0x23
@@ -569,19 +569,20 @@ special_1c_insts:
     # FUNCT = 0x3e
     .word 0
     # FUNCT = 0x3f
+    .word 0
 
 
 # Tabela especial de <Definição da Instrução> com o campo OPCODE = 0x01
 # Acessada com o deslocamento pelo campo RT
 special_rt_insts:
     # RT = 0x00
-    .word 0
+    .word inst_def_bltz
     # RT = 0x01
-    .word 0
+    .word inst_def_bgez
     # RT = 0x02
-    .word 0
+    .word inst_def_bltzl
     # RT = 0x03
-    .word 0
+    .word inst_def_bgezl
     # RT = 0x04
     .word 0
     # RT = 0x05
@@ -591,29 +592,29 @@ special_rt_insts:
     # RT = 0x07
     .word 0
     # RT = 0x08
-    .word 0
+    .word inst_def_tgei
     # RT = 0x09
-    .word 0
+    .word inst_def_tgeiu
     # RT = 0x0a
-    .word 0
+    .word inst_def_tlti
     # RT = 0x0b
-    .word 0
+    .word inst_def_tltiu
     # RT = 0x0c
-    .word 0
+    .word inst_def_teqi
     # RT = 0x0d
     .word 0
     # RT = 0x0e
-    .word 0
+    .word inst_def_tnei
     # RT = 0x0f
     .word 0
     # RT = 0x10
-    .word 0
+    .word inst_def_bltzal
     # RT = 0x11
-    .word 0
+    .word inst_def_bgezal
     # RT = 0x12
-    .word 0
+    .word inst_def_bltzall
     # RT = 0x13
-    .word 0
+    .word inst_def_bgczall
     # RT = 0x14
     .word 0
     # RT = 0x15
@@ -638,12 +639,102 @@ special_rt_insts:
     .word 0
     # RT = 0x1f
     .word 0
-#tabela raiz
-inst_def_j:     definst("j #0", OP_MEM_ADDR, OP_NONE, OP_NONE, OP_NONE)
-inst_def_jal:   definst("jal #0", OP_MEM_ADDR, OP_NONE, OP_NONE, OP_NONE)
-inst_def_addiu: definst("addiu #1, #0, #2", OP_REG, OP_REG, OP_IMM_SIG, OP_NONE)
-inst_def_lw:    definst("lw #1, #2(#0)", OP_REG, OP_REG, OP_IMM_SIG, OP_NONE)
+    
+# Tabela raíz
+inst_def_j:       definst("j #0", OP_MEM_ADDR, OP_NONE, OP_NONE, OP_NONE)
+inst_def_jal:     definst("jal #0", OP_MEM_ADDR, OP_NONE, OP_NONE, OP_NONE)
+inst_def_beq:     definst("beq #0, #1, #2", OP_REG, OP_REG, OP_MEM_OFFSET, OP_NONE)
+inst_def_bne:     definst("bne #0, #1, #2", OP_REG, OP_REG, OP_MEM_OFFSET, OP_NONE)
+inst_def_blez:    definst("blez #0, #2", OP_REG, OP_NONE, OP_MEM_OFFSET, OP_NONE)
+inst_def_bgtz:    definst("bgtz #0, #2", OP_REG, OP_NONE, OP_MEM_OFFSET, OP_NONE)
+inst_def_addi:    definst("addi #1, #0, #2", OP_REG, OP_REG, OP_IMM_SIG, OP_NONE)
+inst_def_addiu:   definst("addiu #1, #0, #2", OP_REG, OP_REG, OP_IMM_SIG, OP_NONE)
+inst_def_slti:    definst("slti #0, #1, #2", OP_REG, OP_REG, OP_IMM_SIG, OP_NONE)
+inst_def_sltiu:   definst("sltiu #0, #1, #2", OP_REG, OP_REG, OP_IMM_UNSIG, OP_NONE)
+inst_def_andi:    definst("andi #0, #1, #2", OP_REG, OP_REG, OP_IMM_UNSIG, OP_NONE)
+inst_def_ori:     definst("ori #0, #1, #2", OP_REG, OP_REG, OP_IMM_UNSIG, OP_NONE)
+inst_def_xori:    definst("xori #0, #1, #2", OP_REG, OP_REG, OP_IMM_UNSIG, OP_NONE)
+inst_def_lui:     definst("lui #1, #2", OP_NONE, OP_REG, OP_IMM_UNSIG, OP_NONE)
+inst_def_beql:    definst("beql #0, #1, #2", OP_REG, OP_REG, OP_MEM_OFFSET, OP_NONE)
+inst_def_bnel:    definst("bne #0, #1, #2", OP_REG, OP_REG, OP_MEM_OFFSET, OP_NONE)
+inst_def_blezl:   definst("bgtz #0, #2", OP_REG, OP_NONE, OP_MEM_OFFSET, OP_NONE)
+inst_def_bgtzl:   definst("bgtzl #0, #2", OP_REG, OP_NONE, OP_MEM_OFFSET, OP_NONE)
+inst_def_lb:      definst("lb #1, #2(#0)", OP_REG, OP_REG, OP_IMM_SIG, OP_NONE)
+inst_def_lh:      definst("lh #1, #2(#0)", OP_REG, OP_REG, OP_IMM_SIG, OP_NONE)
+inst_def_lwl:     definst("lwl #1, #2(#0)", OP_REG, OP_REG, OP_IMM_SIG, OP_NONE)
+inst_def_lw:      definst("lw #1, #2(#0)", OP_REG, OP_REG, OP_IMM_SIG, OP_NONE)
+inst_def_lbu:     definst("lbu #1, #2(#0)", OP_REG, OP_REG, OP_IMM_SIG, OP_NONE)
+inst_def_lhu:     definst("lhu #1, #2(#0)", OP_REG, OP_REG, OP_IMM_SIG, OP_NONE)
+inst_def_lwr:     definst("lwr #1, #2(#0)", OP_REG, OP_REG, OP_IMM_SIG, OP_NONE)
+inst_def_sb:      definst("sb #1, #2(#0)", OP_REG, OP_REG, OP_IMM_SIG, OP_NONE)
+inst_def_sh:      definst("sh #1, #2(#0)", OP_REG, OP_REG, OP_IMM_SIG, OP_NONE)
+inst_def_swl:     definst("swl #1, #2(#0)", OP_REG, OP_REG, OP_IMM_SIG, OP_NONE)
+inst_def_sw:      definst("sw #1, #2(#0)", OP_REG, OP_REG, OP_IMM_SIG, OP_NONE)
+inst_def_swr:     definst("swr #1, #2(#0)", OP_REG, OP_REG, OP_IMM_SIG, OP_NONE)
+inst_def_ll:      definst("ll #1, #2(#0)", OP_REG, OP_REG, OP_IMM_SIG, OP_NONE)
 
-#tabela0x0
-inst_def_addu:  definst("addu #2, #0, #1", OP_REG, OP_REG, OP_REG, OP_NONE)
+# Tabela 0x0 
+inst_def_sll:     definst("sll #1, #0, #2", OP_REG, OP_REG, OP_REG, OP_NONE)
+inst_def_srl:     definst("srl #2, #1, #3", OP_NONE, OP_REG, OP_REG, OP_IMM_UNSIG)
+inst_def_sra:     definst("sra #2, #1, #3", OP_NONE, OP_REG, OP_REG, OP_IMM_UNSIG)
+inst_def_sllv:    definst("sllv #2, #1, #0", OP_NONE, OP_REG, OP_REG, OP_IMM_UNSIG) 
+inst_def_srlv:    definst("srlv #2, #1, #0", OP_NONE, OP_REG, OP_REG, OP_IMM_UNSIG) 
+inst_def_srav:    definst("srav #2, #1, #0", OP_REG, OP_REG, OP_REG, OP_NONE)
+inst_def_jr:      definst("jr #0", OP_REG, OP_NONE, OP_NONE,OP_NONE)
+inst_def_jalr:    definst("jalr #0, #1", OP_REG,  OP_REG, OP_NONE, OP_NONE)
+inst_def_movz:    definst("movz #2, #0, #1" OP_REG, OP_REG, OP_REG, OP_NONE)
+inst_def_movn:    definst("movn #2, #0, #1" OP_REG, OP_REG, OP_REG, OP_NONE)
+inst_def_syscall: definst("syscall", OP_NONE, OP_NONE, OP_NONE, OP_NONE)
+inst_def_break:   definst("break", OP_NONE, OP_NONE, OP_NONE, OP_NONE)
+inst_def_sync:    definst("sync #3", OP_NONE, OP_NONE, OP_NONE, OP_IMM_UNSIG)
+inst_def_mfhi:    definst("mfhi #2", OP_NONE, OP_NONE, OP_REG, OP_NONE)
+inst_def_mthi:    definst("mthi #2", OP_NONE, OP_NONE, OP_REG, OP_NONE)
+inst_def_mflo:    definst("mflo #2", OP_NONE, OP_NONE, OP_REG, OP_NONE)
+inst_def_mtlo:    definst("mtlo #2", OP_NONE, OP_NONE, OP_REG, OP_NONE)
+inst_def_mult:    definst("mult #0, #1", OP_REG, OP_REG, OP_NONE, OP_NONE)
+inst_def_multu:   definst("multu #0, #1", OP_REG, OP_REG, OP_NONE, OP_NONE)
+inst_def_div:     definst("div #0, #1", OP_REG, OP_REG, OP_NONE, OP_NONE)
+inst_def_divu:    definst("divu #0, #1", OP_REG, OP_REG, OP_NONE, OP_NONE)
+inst_def_add:     definst("add #2, #0, #1", OP_REG, OP_REG, OP_REG, OP_NONE)
+inst_def_addu:    definst("addu #2, #0, #1", OP_REG, OP_REG, OP_REG, OP_NONE)
+inst_def_sub:     definst("sub #2, #0, #1", OP_REG, OP_REG, OP_REG, OP_NONE)
+inst_def_subu:    definst("subu #2, #0, #1", OP_REG, OP_REG, OP_REG, OP_NONE)
+inst_def_and:     definst("and #2, #0, #1", OP_REG, OP_REG, OP_REG, OP_NONE)
+inst_def_or:      definst("or #2, #0, #1", OP_REG, OP_REG, OP_REG, OP_NONE)
+inst_def_xor:     definst("xor #2, #0, #1", OP_REG, OP_REG, OP_REG, OP_NONE)
+inst_def_nor:     definst("nor #2, #0, #1", OP_REG, OP_REG, OP_REG, OP_NONE)
+inst_def_slt:     definst("slt #2, #0, #1", OP_REG, OP_REG, OP_REG, OP_NONE)
+inst_def_sltu:    definst("sltu #2, #0, #1", OP_REG, OP_REG, OP_REG, OP_NONE)
+inst_def_tge:     definst("tge #0, #1", OP_REG, OP_REG, OP_NONE, OP_NONE)
+inst_def_tgeu:    definst("tgeu #0, #1", OP_REG, OP_REG, OP_NONE, OP_NONE)
+inst_def_tlt:     definst("tlt #0, #1", OP_REG, OP_REG, OP_NONE, OP_NONE)
+inst_def_tltu:    definst("tltu #0, #1", OP_REG, OP_REG, OP_NONE, OP_NONE)
+inst_def_teq:     definst("teq #0, #1", OP_REG, OP_REG, OP_NONE, OP_NONE)
+inst_def_tne:     definst("tne #0, #1", OP_REG, OP_REG, OP_NONE, OP_NONE)
 
+
+
+# Tabela 0x01
+inst_def_bltz:    definst("bltz #0, #2", OP_REG, OP_NONE, OP_MEM_OFFSET, OP_NONE)
+inst_def_bgez:    definst("bgez #0, #2", OP_REG, OP_REG, OP_MEM_OFFSET, OP_NONE)
+inst_def_bltzl:   definst("bltzl #0, #2", OP_REG, OP_NONE, OP_MEM_OFFSET, OP_NONE)
+inst_def_bgezl:   definst("bgezl #0, #2", OP_REG, OP_NONE, OP_MEM_OFFSET, OP_NONE)
+inst_def_tgei:    definst("tgei #0, #2", OP_REG, OP_NONE, OP_IMM_SIG, OP_NONE) 
+inst_def_tgeiu:   definst("tgeiu #0, #2", OP_REG, OP_NONE, OP_IMM_UNSIG, OP_NONE) 
+inst_def_tlti:    definst("tlti #0, #2", OP_REG, OP_NONE, OP_IMM_SIG, OP_NONE) 
+inst_def_tltiu:   definst("tltiu #0, #2", OP_REG, OP_NONE, OP_IMM_UNSIG, OP_NONE)   
+inst_def_teqi:    definst("teqi #0, #2", OP_REG, OP_NONE, OP_IMM_SIG, OP_NONE)   
+inst_def_tnei:    definst("tnei #0, #2", OP_REG, OP_NONE, OP_IMM_SIG, OP_NONE) 
+inst_def_bltzal:  definst("bltzal #0, #2", OP_REG, OP_NONE, OP_MEM_OFFSET, OP_NONE)
+inst_def_bgezal:  definst("bgezal #0, #2", OP_REG, OP_NONE, OP_MEM_OFFSET, OP_NONE)
+inst_def_bltzall: definst("bltzall #0, #2", OP_REG, OP_NONE, OP_MEM_OFFSET, OP_NONE)
+inst_def_bgczall: definst("bzczall #0, #2", OP_REG, OP_NONE, OP_MEM_OFFSET, OP_NONE)
+
+# Tabela 0x1c
+inst_def_madd:    definst("madd #0, #1", OP_REG, OP_REG, OP_NONE, OP_NONE)
+inst_def_maddu:   definst("maddu #0, #1", OP_REG, OP_REG, OP_NONE, OP_NONE)
+inst_def_mul:     definst("mul #2, #0, #1", OP_REG, OP_REG, OP_REG, OP_NONE)
+inst_def_msub:    definst("msub #0, #1", OP_REG, OP_REG, OP_NONE, OP_NONE)
+inst_def_msubu:   definst("msubu #0, #1", OP_REG, OP_REG, OP_NONE, OP_NONE)
+inst_def_clo:     definst("clo #2, #0", OP_REG, OP_REG, OP_REG, OP_NONE)
+inst_def_clz:     definst("clz #2, #0", OP_REG, OP_REG, OP_REG, OP_NONE)  
