@@ -185,28 +185,28 @@ parseop_type_imm_signed:
     j parseop_return                                      # retorna a funçao
 
 parseop_type_mem_offset:   
-    sw $a2, 4($sp)                                        # armazena na pilha o valor de $a2
+    sw $a2, 4($sp)                                        # armazena na pilha o PC da instrução
 
     jal signextend
 
-    li $v0, OP_MEM_OFFSET                                 # $v0 = OP_MEM_OFFSET
-
-    lw $a2, 4($sp)                                        # carrega $a2 da pilha
-    sll $v1, $v0, 2                                       # $v1 << 2
+    lw $a2, 4($sp)                                        # carrega da pilha o PC da instrução
+    sll $v1, $v0, 2                                       # $v1 = $v0 << 2
     addiu $t0, $a2, 4                                     # $t0 = PC + 4
     addu $v1, $v1, $t0                                    # $v1 = $v1 + $t0
 
-    j parseop_return                                       # retorna a funçao
+    li $v0, OP_MEM_OFFSET                                 # $v0 = OP_MEM_OFFSET
+
+    j parseop_return                                      # retorna a funçao
 
 parseop_type_mem_address:
-    li $v0, OP_MEM_ADDR                                    # $v0 = OP_MEM_ADDR
+    li $v0, OP_MEM_ADDR                                   # $v0 = OP_MEM_ADDR
 
-    sll $v1, $a0, 2                                        # $v2 = $a0 << 2 (concatenamos 2 zeros à direita do valor do campo)
-    addiu $t0, $a2, 4                                      # $t0 = PC + 4
-    andi $t0, $t0, 0xF0000000                              # $t0 = isola os 4 bits mais significativos de PC + 4
-    or $v1, $v1, $t0                                       # $v1 = substituí os bits mais significativos pelos de PC + 4
+    sll $v1, $a0, 2                                       # $v2 = $a0 << 2 (concatenamos 2 zeros à direita do valor do campo)
+    addiu $t0, $a2, 4                                     # $t0 = PC + 4
+    andi $t0, $t0, 0xF0000000                             # $t0 = isola os 4 bits mais significativos de PC + 4
+    or $v1, $v1, $t0                                      # $v1 = substituí os bits mais significativos pelos de PC + 4
 
-    j parseop_return                                       # retorna a funçao
+    j parseop_return                                      # retorna a funçao
 
 parseop_return:
     lw $ra, 0($sp)                                         # restaura o endereço de retorno

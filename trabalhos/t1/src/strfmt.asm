@@ -2,8 +2,7 @@
 
 
 .text
-
-# Cria uma string com os operandos a partir de uma string de formato
+# Cria uma string com os operandos a partir de uma string de formato.
 #
 # argumentos:
 # $a0 : <endereço> para a string de destino
@@ -11,7 +10,7 @@
 # $a2 : <endereço> para o vetor de <Operando>
 #
 # retorno:
-# $v0 = <endereço> para o término da string de resultado
+# $v0 : <endereço> para o término da string de resultado
 #
 # pilha:
 # $sp +  16 : $s3
@@ -83,43 +82,53 @@ strfmt_for_condition:
 
     jr $ra                                                 # retorna ao chamador
 
-
-
+# Escreve o operador na string de destino.
+#
+# argumentos:
+# $a0 : <endereço> para a string de destino
+# $a1 : <endereço> para o <Operando>
+#
+# retorno:
+# $v0 : <endereço> para o término da string de destino
+#
+# pilha:
+# 0 + $sp : $ra 
 writeop:
-    addiu $sp, $sp, -4
-    sw $ra, 0($sp)
+    addiu $sp, $sp, -4                                     # ajusta a pilha
+    sw $ra, 0($sp)                                         # armazena na pilha o registrador $ra
 
-    lw $t0, 0($a1)
-    lw $a1, 4($a1)
+    lw $t0, 0($a1)                                         # $t0 = tipo do <Operando>
+    lw $a1, 4($a1)                                         # $a1 = valor do <Operando>
 
-    beq $t0, OP_REG, writeop_case_reg
-    beq $t0, OP_MEM_OFFSET, writeop_case_mem_offset
-    beq $t0, OP_MEM_ADDR, writeop_case_mem_addr
-    beq $t0, OP_IMM_SIG, writeop_case_imm_sig
-    beq $t0, OP_IMM_UNSIG, writeop_case_imm_unsig
+    beq $t0, OP_REG, writeop_case_reg                      # se o tipo for registrador, escreve a string correspondente
+    beq $t0, OP_MEM_OFFSET, writeop_case_mem_offset        # se o tipo for deslocamento de memória, escreve o valor em hexadecimal
+    beq $t0, OP_MEM_ADDR, writeop_case_mem_addr            # se o tipo for endereço de memória, escreve o valor em hexadecimal
+    beq $t0, OP_IMM_SIG, writeop_case_imm_sig              # se o tipo for imediato com sinal, escreve o valor em decimal com sinal
+    beq $t0, OP_IMM_UNSIG, writeop_case_imm_unsig          # se o tipo for imediato sem sinal, escreve o valor em decimal sem sinal
 
 writeop_case_default:
-        move $v0, $a0
-        j writeop_epilogue
+        move $v0, $a0                                      # $v0 = endereço para o início da string de destino
+        j writeop_epilogue                                 # retorna a função
 
 writeop_case_reg:
-        jal regtostr
-        j writeop_epilogue
+        jal regtostr                                       # converte o registrador para sua string equivalente
+        j writeop_epilogue                                 # retorna a função
     
 writeop_case_mem_offset:
 writeop_case_mem_addr:
-        jal itostrhex
-        j writeop_epilogue
+        jal itostrhex                                      # converte o valor para hexadecimal
+        j writeop_epilogue                                 # retorna a função
     
 writeop_case_imm_sig:
-        jal itostrdec
-        j writeop_epilogue
+        jal itostrdec                                      # converte o valor para decimal com sinal
+        j writeop_epilogue                                 # retorna a função
 
 writeop_case_imm_unsig:
-        jal utostrdec
-        j writeop_epilogue
+        jal utostrdec                                      # converte o valor para decimal sem sinal
+        j writeop_epilogue                                 # retorna a função
     
 writeop_epilogue:
-    lw $ra, 0($sp)
-    addiu $sp, $sp, 4
-    jr $ra
+    lw $ra, 0($sp)                                         # restaura o registrador $ra
+    addiu $sp, $sp, 4                                      # restaura a pilha
+
+    jr $ra                                                 # retorna ao chamador
