@@ -42,42 +42,92 @@ main:
 # $v1 : resto da divisão
 #
 # registradores
+# $s0 : divisor
+# $s1 : iteração
 # $v0 : resto lower (esquerda)
 # $v1 : resto upper (direita)
-# $t0 : iteração
 #
 # RESTO (64 bits)
 # ---------------------------------
 # | $v1 (32 bits) | $v0 (32 bits) |
 # ---------------------------------
+#
+# mapa da pilha:
+# $sp + 0 : $ra
+# $sp + 4 : $s0
 divide:
+    addiu $sp, $sp, -8                                      # ajusta a pilha
+    sw $ra, 0($sp)                                          # armazena na pilha o registrador $ra
+    sw $s0, 4($sp)                                          # armazena na pilha o registrador $s0
+    
     move $v0, $a0                                           # inicializa o resto lower com o dividendo
     move $v1, $zero                                         # inicializa o resto upper com zero
     
-    move $t0, $zero                                         # inicializa a iteração como zero
+    move $s0, $a1                                           # copia o divisor
+    
+    move $a0, $v0                                           # copia o resto lower
+    move $a1, $v1                                           # copia o resto upper
+    jal sll64                                               # desloca o resto 1 bit para a esquerda com LSB = 0
+
+    move $s1, $zero                                         # inicializa a iteração como zero
     
     j divide_for_condition                                  # vá para a condição do laço
     
 divide_for_loop:
-    srl $t1, $v0, 31                                        # extrai o MSB do resto lower
-    
-    sll $v1, $v1, 1                                         # desloca o resto upper 1 bit para a esquerda
-    sll $v0, $v0, 1                                         # desloca o resto lower 1 bit para a esquerda com o bit LSB = 0
-    or $v1, $v1, $t1                                        # carrega o MSB do resto lower para o resto upper
-
-    blt $v1, $a1, divide_end_if_greather_than_divider       # pula o bloco de código quando !(resto - divisor >= 0)
+    bltu $v1, $s0, divide_else_greather_than_divider        # pula o bloco de código quando !(resto - divisor >= 0)
 
 divide_if_greather_than_divider:
-    subu $v1, $v1, $a1                                      # resto = resto - divisor
+    subu $v1, $v1, $s0                                      # resto = resto - divisor
+
+    move $a0, $v0                                           # copia o resto lower
+    move $a1, $v1                                           # copia o resto upper
+    jal sll64                                               # desloca o resto 1 bit para a esquerda com LSB = 0
+
     ori $v0, $v0, 1                                         # LSB = 1
-    
+
+    j divide_end_if_greather_than_divider                   # encerra o bloco de código
+
+divide_else_greather_than_divider:
+    move $a0, $v0                                           # copia o resto lower
+    move $a1, $v1                                           # copia o resto upper
+    jal sll64                                               # desloca o resto 1 bit para a esquerda com LSB = 0
+
 divide_end_if_greather_than_divider:
 
 divide_for_increment:
-    addiu $t0, $t0, 1                                       # incrementa a iteração
+    addiu $s1, $s1, 1                                       # incrementa a iteração
     
 divide_for_condition:
-    blt $t0, 32, divide_for_loop                            # continua o laço por 32 iterações
+    bltu $s1, 32, divide_for_loop                           # continua o laço por 32 iterações
+    
+    srl $v1, $v1, 1                                         # desloca o resto para a direita
+
+    lw $ra, 0($sp)                                          # restaura o registrador $ra
+    lw $s0, 4($sp)                                          # restaura  o registrador $s0
+    addiu $sp, $sp, 8                                       # restaura a pilha
+
+    jr $ra                                                  # retorna ao chamador
+
+# Realiza um deslocamento de 1 bit para a esquerda em 2 registradores.
+#
+# REGISTRADOR (64 bits)
+# ---------------------------------
+# | $a1 (32 bits) | $a0 (32 bits) |
+# ---------------------------------
+#
+# argumentos:
+# $a0 : registrador lower 
+# $a1 : registrador upper
+#
+# retorno:
+# $v0 : registrador lower  
+# $v1 : registrador upper
+sll64:
+    srl $t0, $a0, 31                                        # extrai o MSB do registrador lower
+    
+    sll $v1, $a1, 1                                         # desloca o registrador upper 1 bit para a esquerda
+    sll $v0, $a0, 1                                         # desloca o registrador lower 1 bit para a esquerda
+    or $v1, $v1, $t0                                        # carrega o MSB anterior do registrador lower para o LSB do registrador upper
     
     jr $ra                                                  # retorna ao chamador
 
