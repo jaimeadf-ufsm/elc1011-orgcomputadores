@@ -33,15 +33,15 @@ main:
 # Divide dois números inteiros sem sinal.
 # x / y
 #
-# argumentos
+# argumentos:
 # $a0 : dividendo x
 # $a1 : divisor y
 #
-# retorno
+# retorno:
 # $v0 : quociente da divisão
 # $v1 : resto da divisão
 #
-# registradores
+# registradores:
 # $s0 : divisor
 # $s1 : iteração
 # $v0 : resto lower (esquerda)
