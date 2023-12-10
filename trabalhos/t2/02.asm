@@ -3,6 +3,14 @@
 .eqv        SERVICO_IMPRIME_DOUBLE      3
 .eqv        SERVICO_LE_DOUBLE           7
 
+.macro li.d (%register, %constant)
+.data
+constant: .double %constant
+.text
+ldc1 %register, constant
+.end_macro
+
+
 main:
 
     la $a0, msg_pergunta
