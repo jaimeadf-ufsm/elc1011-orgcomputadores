@@ -130,7 +130,7 @@ fim:
 
 .data
 
-    msg_pergunta: .asciiz "Digite o angulo em radianos: "
+    msg_pergunta: .asciiz "Digite o angulo em graus: "
     msg_resultado1: .asciiz "O cosseno do angulo ?: "
     msg_resultado2: .asciiz "O seno do angulo ?: "
     nova_linha:    .asciiz "\n"
